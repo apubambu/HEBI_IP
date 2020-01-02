@@ -59,8 +59,9 @@ while 1
     theta_dot = M * q_dot;
     
     count = count + 1;
+    
+    % Hebi updaten
+    cmd.velocity = theta_dot';
+    group.send(cmd);
 end
 
-% Hebi updaten
-cmd.velocity = theta_dot';
-group.send(cmd);
