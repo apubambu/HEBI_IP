@@ -81,7 +81,7 @@ while 1
     q_log = [q_log q];
     
     % calculate wheel velocities
-    theta_dot = T_WO * M * q_dot;
+    theta_dot = M * T_WO * q_dot;
     
     % Hebi updaten
     cmd.velocity = theta_dot';
