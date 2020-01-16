@@ -4,10 +4,8 @@ clear all
 
 % Define new group with HEBI modules
 group = HebiLookup.newGroupFromNames('Robot',{'1'; '2'; '3'; '4'}); 
-<<<<<<< HEAD
-=======
+
 % Define new group with mobile IO app
->>>>>>> b26b82c90ae1d1a37e7abeb8902a8b5786f8a021
 
 cmd = CommandStruct();
 
@@ -50,10 +48,9 @@ while 1
     
     
     % calculate theta_p with a complementary filter
-<<<<<<< HEAD
-=======
+
     phi_dot = alpha_c*(phi_dot + fbk.gyroZ(1)) + (1-alpha_c)*atan2(fbk.accelY(1),fbk.accelX(1))/dt; % Complementary filter (evtl. -fbk.gyroZ)
->>>>>>> b26b82c90ae1d1a37e7abeb8902a8b5786f8a021
+
     
     esum = esum + e; %esum = esum + e*dt;
     y = Kp * e + Ki * dt * esum + Kd * (e - eold)/dt; %y = Kp * e + Ki * esum + Kd * (e - eold)/dt;
