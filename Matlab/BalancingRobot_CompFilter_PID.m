@@ -4,6 +4,10 @@ clear all
 
 % Define new group with HEBI modules
 group = HebiLookup.newGroupFromNames('Robot',{'1'; '2'; '3'; '4'}); 
+<<<<<<< HEAD
+=======
+% Define new group with mobile IO app
+>>>>>>> b26b82c90ae1d1a37e7abeb8902a8b5786f8a021
 
 cmd = CommandStruct();
 
@@ -11,9 +15,8 @@ cmd = CommandStruct();
 [Rw,l1,l2,alpha] = MecanumPendulum();
 
 % PID Controller Gains
-Kp = 3.5; % P element
-Ki = 1.5; % I element
-Kd = 0.06; % D element
+
+% Maximum velocities
 
 % Declare error variables
 esum = 0; % starting value for cumulative error
@@ -33,7 +36,6 @@ tau = 0.5; %[s]
 Ts = 1/group.getFeedbackFrequency; %[s], default feedback frequency is 100 Hz 
 alpha_c = tau/(tau+Ts);
 % initial phi
-phi = 0;
 
 t_old = group.getNextFeedback.time; % module time at start
 
@@ -45,15 +47,18 @@ while 1
     dt = t-t_old; % compute time from last to current feedback
     t_old = t; % save current time
     
-    % calculate theta_p with a complementary filter
-    phi = alpha_c*(phi + dt*fbk.gyroZ(1)) + (1-alpha_c)*atan2(fbk.accelY(1),fbk.accelX(1)); % Complementary filter (evtl. -fbk.gyroZ)
     
-    e = target - phi;
+    
+    % calculate theta_p with a complementary filter
+<<<<<<< HEAD
+=======
+    phi_dot = alpha_c*(phi_dot + fbk.gyroZ(1)) + (1-alpha_c)*atan2(fbk.accelY(1),fbk.accelX(1))/dt; % Complementary filter (evtl. -fbk.gyroZ)
+>>>>>>> b26b82c90ae1d1a37e7abeb8902a8b5786f8a021
+    
     esum = esum + e; %esum = esum + e*dt;
     y = Kp * e + Ki * dt * esum + Kd * (e - eold)/dt; %y = Kp * e + Ki * esum + Kd * (e - eold)/dt;
     eold = e;
     
-    q_dot = [0; 0; 0; y/dt]; % robot only balancing y/dt -> velocity
     
     % calculate wheel velocities
     theta_dot = M * q_dot;
