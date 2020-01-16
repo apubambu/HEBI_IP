@@ -1,10 +1,10 @@
 function [Rw,l1,l2,alpha] = MecanumPendulum()
 % wheel offset
-l1 = 0.06;
-l2 = 0.15;
+l1 = 0.025;
+l2 = 0.2;
 % wheel radius
-Rw = 0.04;
+Rw = 0.045;
 % wheel roller angle
-alpha = [45 -45 -45 45]*pi/180;
+alpha = [45 -45 45 -45]*pi/180;
 end
 
