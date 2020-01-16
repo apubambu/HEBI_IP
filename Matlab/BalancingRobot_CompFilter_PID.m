@@ -3,7 +3,7 @@ close all
 clear all
 
 % Define new group with HEBI modules
-group = HebiLookup.newGroupFromNames('Robot',{'LinksAußen'; 'LinksInnene'; 'RechtsInnen'; 'RechtsAußen'}); 
+group = HebiLookup.newGroupFromNames('Robot',{'1'; '2'; '3'; '4'}); 
 
 cmd = CommandStruct();
 
@@ -24,9 +24,9 @@ target = 0; % theta_p = 0
 
 % inverse kinematic mapping
 M = 1/Rw * [cot(alpha(1)) 1 l2 -Rw;...
-    cot(alpha(2)) 1 l1 -Rw;...
+    cot(alpha(2)) 1 l1 Rw;...
     cot(alpha(3)) 1 -l1 -Rw;...
-    cot(alpha(4)) 1 -l2 -Rw];
+    cot(alpha(4)) 1 -l2 Rw];
 
 % Time constants for complementary filter
 tau = 0.5; %[s]
@@ -46,7 +46,7 @@ while 1
     t_old = t; % save current time
     
     % calculate theta_p with a complementary filter
-    phi = alpha_c*(phi + dt*fbk.gyroZ) + (1-alpha_c)*atan2(fbk.accelY,fbk.accelX); % Complementary filter (evtl. -fbk.gyroZ)
+    phi = alpha_c*(phi + dt*fbk.gyroZ(1)) + (1-alpha_c)*atan2(fbk.accelY(1),fbk.accelX(1)); % Complementary filter (evtl. -fbk.gyroZ)
     
     e = target - phi;
     esum = esum + e; %esum = esum + e*dt;
